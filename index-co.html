@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미술친구 상동점 - 상담 신청서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F5;
+    --ink:#2D2A26;
+    --coral:#F50C41;
+    --teal:#373BFF;
+    --yellow:#FAA727;
+    --green:#38DF13;
+    --card:#FFFFFF;
+    --line:#E0E0E0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:28px 20px 80px;}
+
+  /* HERO */
+  .hero{position:relative;padding:32px 4px 20px;}
+  .hero .logo{
+    height:42px;
+    display:block;
+    margin-bottom:14px;
+  }
+  .hero .eyebrow{
+    font-family:'Gaegu',cursive;
+    color:var(--coral);
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:2px;
+  }
+  .hero h1{
+    font-family:'Gaegu',cursive;
+    font-size:42px;
+    line-height:1.25;
+    margin:6px 0 10px;
+    font-weight:700;
+  }
+  .hero h1 .underline{
+    position:relative;
+    white-space:nowrap;
+  }
+  .hero h1 .underline::after{
+    content:"";
+    position:absolute;
+    left:-2px;right:-2px;bottom:2px;
+    height:10px;
+    background:var(--yellow);
+    opacity:.55;
+    z-index:-1;
+    border-radius:4px 8px 6px 10px;
+    transform:rotate(-1deg);
+  }
+  .hero p{font-size:15px;line-height:1.7;color:#6b6258;margin:0;}
+
+  /* PROGRESS - crayon curve */
+  .progress-wrap{margin:28px 0 6px;}
+  .progress-track{
+    position:relative;
+    height:36px;
+  }
+  .progress-svg{width:100%;height:100%;display:block;}
+  .progress-label{
+    display:flex;justify-content:space-between;
+    margin-top:6px;
+    font-size:11px;color:#a59c8f;font-weight:500;
+  }
+  .progress-label span.active{color:var(--coral);font-weight:700;}
+
+  /* SECTION CARD */
+  .section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:24px 22px;
+    margin:18px 0;
+    box-shadow:0 2px 0 var(--line);
+  }
+  .section h2{
+    font-family:'Gaegu',cursive;
+    font-size:24px;
+    margin:0 0 4px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .section h2 .icon{
+    width:34px;height:34px;flex:none;
+  }
+  .section .desc{
+    font-size:13px;color:#a59c8f;margin:0 0 18px;line-height:1.6;
+  }
+
+  /* FORM ELEMENTS */
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:6px;
+    color:var(--ink);
+  }
+  .field label .opt{
+    font-weight:400;color:#a59c8f;font-size:12px;margin-left:4px;
+  }
+  .field input[type=text],
+  .field input[type=tel],
+  .field input[type=date],
+  .field textarea,
+  .field select{
+    width:100%;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    font-size:15px;
+    font-family:inherit;
+    color:var(--ink);
+    background:#FFFDFB;
+    transition:border-color .15s, background .15s;
+  }
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus{
+    outline:none;
+    border-color:var(--teal);
+    background:#fff;
+  }
+  .field textarea{resize:vertical;min-height:72px;}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:480px){.row2{grid-template-columns:1fr;}}
+
+  /* slider */
+  .slider-wrap{padding:6px 4px 0;}
+  .slider-wrap input[type=range]{
+    width:100%;
+    -webkit-appearance:none;
+    height:6px;
+    border-radius:999px;
+    background:var(--line);
+    outline:none;
+    accent-color:var(--coral);
+  }
+  .slider-wrap input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:26px;height:26px;border-radius:50%;
+    background:var(--coral);
+    border:3px solid #fff;
+    box-shadow:0 0 0 1px var(--coral);
+    cursor:pointer;
+  }
+  .slider-wrap input[type=range]::-moz-range-thumb{
+    width:26px;height:26px;border-radius:50%;
+    background:var(--coral);
+    border:3px solid #fff;
+    box-shadow:0 0 0 1px var(--coral);
+    cursor:pointer;
+  }
+  .slider-track-labels{
+    display:flex;justify-content:space-between;
+    font-size:11px;color:#a59c8f;margin-top:6px;
+  }
+  .slider-value{
+    text-align:center;
+    font-family:'Gaegu',cursive;
+    font-size:22px;
+    color:var(--coral);
+    font-weight:700;
+    margin-top:6px;
+  }
+
+  /* radio / chip group */
+  .chip-group{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{
+    border:1.5px solid var(--line);
+    border-radius:999px;
+    padding:9px 18px;
+    font-size:14px;
+    cursor:pointer;
+    background:#FFFDFB;
+    transition:all .15s;
+    user-select:none;
+  }
+  .chip input{display:none;}
+  .chip.checked{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+    font-weight:700;
+  }
+
+  /* policy box */
+  .policy{
+    background:#F0F0F0;
+    border:1px dashed #D5D5D5;
+    border-radius:14px;
+    padding:14px 16px;
+    font-size:12.5px;
+    line-height:1.8;
+    color:#6b6258;
+    margin-bottom:14px;
+    max-height:160px;
+    overflow-y:auto;
+  }
+  .policy strong{color:var(--ink);}
+
+  /* checkbox agree */
+  .agree{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:12px 4px;
+    cursor:pointer;
+    border-radius:10px;
+  }
+  .agree:hover{background:#F0F0F0;}
+  .agree input{
+    margin-top:2px;
+    width:20px;height:20px;
+    accent-color:var(--coral);
+    flex:none;
+    cursor:pointer;
+  }
+  .agree .txt{font-size:14px;line-height:1.6;}
+  .agree .txt b{color:var(--coral);}
+  .agree .txt .small{display:block;font-size:12px;color:#a59c8f;margin-top:2px;}
+
+  /* submit */
+  .submit-bar{
+    position:sticky;bottom:16px;
+    margin-top:28px;
+    text-align:center;
+  }
+  .submit-btn{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:16px;
+    background:var(--coral);
+    color:#fff;
+    font-size:17px;
+    font-weight:900;
+    font-family:'Noto Sans KR',sans-serif;
+    letter-spacing:1px;
+    cursor:pointer;
+    box-shadow:0 6px 0 #B8092F;
+    transition:transform .08s, box-shadow .08s;
+  }
+  .submit-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #B8092F;}
+  .submit-btn:disabled{
+    background:#D8CFC2;box-shadow:0 6px 0 #C3B9AB;cursor:not-allowed;
+  }
+  .submit-note{font-size:12px;color:#a59c8f;margin-top:10px;}
+  .error-msg{
+    color:var(--coral);font-size:13px;font-weight:700;margin-top:8px;
+    display:none;
+  }
+
+  /* RESULT SCREEN */
+  .result{
+    display:none;
+  }
+  .result.show{display:block;}
+  .result .check{
+    width:64px;height:64px;margin:0 auto 16px;display:block;
+  }
+  .result h1{text-align:center;}
+  .result-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:22px;
+    margin-top:20px;
+    font-size:13px;
+    line-height:1.9;
+    white-space:pre-wrap;
+    word-break:break-word;
+    font-family:'Noto Sans KR',monospace;
+    color:#4a443d;
+    max-height:420px;
+    overflow-y:auto;
+  }
+  .copy-btn{
+    width:100%;
+    margin-top:14px;
+    padding:16px;
+    border:none;
+    border-radius:16px;
+    background:var(--teal);
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    font-family:'Gaegu',cursive;
+    cursor:pointer;
+    box-shadow:0 6px 0 #2123B8;
+  }
+  .copy-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #2123B8;}
+  .copy-btn.copied{background:#7F82FF;}
+
+  .form-screen.hide{display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- FORM SCREEN -->
+  <div class="form-screen" id="formScreen">
+
+    <div class="hero">
+      <img class="logo" src="data:image/png;base64,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" alt="미술친구 로고">
+      <div class="eyebrow">ART FRIEND · 상동점</div>
+      <h1>우리 친구를<br><span class="underline">미술친구</span>에<br>소개해주세요</h1>
+      <p>아래 내용을 작성해주시면, 원장 선생님이 확인 후 상담 일정을 안내드릴게요.<br>입력하신 정보는 상담 목적으로만 안전하게 사용됩니다.</p>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <svg class="progress-svg" viewBox="0 0 600 36" preserveAspectRatio="none">
+          <path d="M10,20 C 150,5 250,35 300,20 C 350,5 450,35 590,20"
+                fill="none" stroke="#E0E0E0" stroke-width="6" stroke-linecap="round"/>
+          <path id="progressFill" d="M10,20 C 150,5 250,35 300,20 C 350,5 450,35 590,20"
+                fill="none" stroke="#2D2A26" stroke-width="6" stroke-linecap="round"
+                stroke-dasharray="0 2000"/>
+        </svg>
+      </div>
+      <div class="progress-label">
+        <span data-step="1">학생정보</span>
+        <span data-step="2">보호자</span>
+        <span data-step="3">수업정보</span>
+        <span data-step="4">개인정보</span>
+        <span data-step="5">기타</span>
+      </div>
+    </div>
+
+    <form id="regForm">
+
+      <!-- 1. 학생 정보 -->
+      <div class="section" data-section="1">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#2D2A26" stroke-width="2"/><path d="M4 20c0-3.3 3.6-6 8-6s8 2.7 8 6" stroke="#2D2A26" stroke-width="2" stroke-linecap="round"/></svg>학생 정보</h2>
+        <p class="desc">등록할 친구의 정보를 알려주세요.</p>
+
+        <div class="field">
+          <label>학생 이름</label>
+          <input type="text" name="student_name" placeholder="예) 김미술" required>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label>생년월일</label>
+            <input type="date" name="student_birth" required>
+          </div>
+          <div class="field">
+            <label>성별</label>
+            <div class="chip-group" data-group="gender">
+              <label class="chip"><input type="radio" name="gender" value="여">여자</label>
+              <label class="chip"><input type="radio" name="gender" value="남">남자</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label>학교 또는 유치원</label>
+            <input type="text" name="school" placeholder="예) 상동초등학교">
+          </div>
+          <div class="field">
+            <label>학년 또는 나이</label>
+            <input type="text" name="grade" placeholder="예) 2학년 / 5세">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>주소<span class="opt">(선택)</span></label>
+          <input type="text" name="address" placeholder="예) 거제시 상동동 ○○아파트 ○○동 ○○호">
+        </div>
+      </div>
+
+      <!-- 2. 보호자 정보 -->
+      <div class="section" data-section="2">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4z" stroke="#2D2A26" stroke-width="2"/><path d="M4 21c0-3.9 3.6-7 8-7s8 3.1 8 7" stroke="#2D2A26" stroke-width="2" stroke-linecap="round"/></svg>보호자 정보</h2>
+        <p class="desc">연락이 가장 잘 닿는 보호자님 정보를 적어주세요.</p>
+
+        <div class="row2">
+          <div class="field">
+            <label>보호자 이름</label>
+            <input type="text" name="guardian_name" placeholder="예) 김보호" required>
+          </div>
+          <div class="field">
+            <label>학생과의 관계</label>
+            <select name="guardian_relation">
+              <option value="모">모</option>
+              <option value="부">부</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>연락처 (대표)</label>
+          <input type="tel" name="guardian_phone1" placeholder="010-0000-0000" required>
+        </div>
+
+        <div class="field">
+          <label>학생 연락처<span class="opt">(선택)</span></label>
+          <input type="tel" name="student_phone" placeholder="010-0000-0000">
+        </div>
+      </div>
+
+      <!-- 3. 수업 정보 -->
+      <div class="section" data-section="3">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#2D2A26" stroke-width="2"/><path d="M9 9h6M9 13h6M9 17h3" stroke="#2D2A26" stroke-width="2" stroke-linecap="round"/></svg>수업 정보</h2>
+        <p class="desc">희망 수업 정보를 선택해주세요. (추후 상담 후 조정 가능)</p>
+
+        <div class="field">
+          <label>등록 희망 횟수</label>
+          <div class="slider-wrap">
+            <input type="range" name="freq" min="1" max="5" value="2" step="1" id="freqSlider">
+            <div class="slider-track-labels">
+              <span>주1회</span><span>주2회</span><span>주3회</span><span>주4회</span><span>주5회</span>
+            </div>
+            <div class="slider-value" id="freqValue">주 2회</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>희망 수업 시간<span class="opt">(중복 선택 가능)</span></label>
+          <div class="chip-group" data-group="times">
+            <label class="chip"><input type="checkbox" name="class_time" value="2:00">2:00</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="2:50">2:50</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="3:40">3:40</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="4:10">4:10</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="4:30">4:30</label>
+            <label class="chip"><input type="checkbox" name="class_time" value="5:10">5:10</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>차량 이용</label>
+          <div class="chip-group" data-group="vehicle">
+            <label class="chip"><input type="radio" name="vehicle" value="이용">이용</label>
+            <label class="chip"><input type="radio" name="vehicle" value="미이용">미이용</label>
+          </div>
+        </div>
+
+        <div class="field" id="pickupField" style="display:none;">
+          <label>희망 등원지</label>
+          <input type="text" name="pickup_from" placeholder="예) ○○아파트 정문, ○○유치원 앞 등">
+          <label style="margin-top:10px;">희망 하원지</label>
+          <input type="text" name="pickup_to" placeholder="예) 자택 / ○○유치원 등">
+        </div>
+      </div>
+
+      <!-- 4. 개인정보 동의 -->
+      <div class="section" data-section="4">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#2D2A26" stroke-width="2"/><path d="M8 11V8a4 4 0 018 0v3" stroke="#2D2A26" stroke-width="2" stroke-linecap="round"/></svg>개인정보 수집·이용 동의</h2>
+        <p class="desc">상담을 위해 아래 내용을 안내드립니다.</p>
+
+        <div class="policy">
+          <strong>[수집 항목]</strong> 학생 이름, 생년월일, 성별, 학교/유치원, 학년/나이, 주소, 학생 연락처, 보호자 정보 및 연락처<br>
+          <strong>[수집 목적]</strong> 학원 상담 및 등록 안내, 보호자와의 연락<br>
+          <strong>[보유 기간]</strong> 상담 종료 후 등록하지 않을 경우 즉시 파기, 등록 시 회원 탈퇴 시까지 보관 후 파기
+        </div>
+
+        <label class="agree">
+          <input type="checkbox" name="agree_privacy" required>
+          <span class="txt"><b>[필수]</b> 개인정보 수집 및 이용에 동의합니다.</span>
+        </label>
+      </div>
+
+      <!-- 5. 기타 -->
+      <div class="section" data-section="5">
+        <h2><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3L12 14l-4.8 2.6.9-5.3L4.3 7.6l5.3-.8z" stroke="#2D2A26" stroke-width="2" stroke-linejoin="round"/></svg>알아두면 좋은 정보</h2>
+        <p class="desc">선생님이 우리 친구를 더 잘 알 수 있도록 알려주세요.</p>
+
+        <div class="field">
+          <label>알러지 / 건강상 주의사항<span class="opt">(선택)</span></label>
+          <textarea name="health_notes" placeholder="예) 특정 미술재료 알러지, 주의가 필요한 건강 상태 등"></textarea>
+        </div>
+
+        <div class="field">
+          <label>기타 전달사항<span class="opt">(선택)</span></label>
+          <textarea name="etc_notes" placeholder="예) 성격, 좋아하는 활동, 선생님께 미리 알려주고 싶은 점 등"></textarea>
+        </div>
+      </div>
+
+      <div class="submit-bar">
+        <button type="submit" class="submit-btn" id="submitBtn">신청서 제출하기</button>
+        <div class="error-msg" id="errorMsg">필수 항목(★)을 모두 확인해주세요.</div>
+        <div class="submit-note">제출 후 원장 선생님이 확인하고 연락드립니다 :)</div>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="result" id="resultScreen">
+    <div class="hero">
+      <svg class="check" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#373BFF"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <h1 style="font-size:32px;">신청이<br>완료되었어요!</h1>
+      <p style="text-align:center;">아래 내용을 학원 카카오톡 채널로 보내주시면<br>더 빠르게 확인할 수 있어요.</p>
+    </div>
+
+    <div class="result-card" id="resultText"></div>
+    <button class="copy-btn" id="copyBtn">신청 내용 복사하기</button>
+    <div class="submit-note" style="text-align:center;">복사 후 카카오톡 채널 '미술친구 상동점'으로 붙여넣어 전송해주세요.</div>
+  </div>
+
+</div>
+
+<script>
+  // chip toggle
+  document.querySelectorAll('.chip input').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      if(inp.type==='radio'){
+        document.querySelectorAll(`input[name="${inp.name}"]`).forEach(r=>{
+          r.closest('.chip').classList.toggle('checked', r.checked);
+        });
+      } else {
+        inp.closest('.chip').classList.toggle('checked', inp.checked);
+      }
+      if(inp.name==='vehicle'){
+        document.getElementById('pickupField').style.display = inp.value==='이용' ? 'block':'none';
+      }
+    });
+  });
+
+  // frequency slider
+  const freqSlider = document.getElementById('freqSlider');
+  const freqValue = document.getElementById('freqValue');
+  freqSlider.addEventListener('input', ()=>{
+    freqValue.textContent = `주 ${freqSlider.value}회`;
+  });
+
+  // progress bar based on scroll through sections
+  const sections = document.querySelectorAll('.section');
+  const labels = document.querySelectorAll('.progress-label span');
+  const fill = document.getElementById('progressFill');
+  const totalLen = 1000; // approx path length
+
+  function updateProgress(){
+    let activeIndex = 0;
+    sections.forEach((s,i)=>{
+      const rect = s.getBoundingClientRect();
+      if(rect.top < window.innerHeight*0.5) activeIndex = i;
+    });
+    labels.forEach((l,i)=>l.classList.toggle('active', i<=activeIndex));
+    const ratio = (activeIndex+1)/sections.length;
+    fill.style.strokeDasharray = `${ratio*totalLen} 2000`;
+  }
+  window.addEventListener('scroll', updateProgress);
+  updateProgress();
+
+  // form submit
+  document.getElementById('regForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const form = e.target;
+    const errorMsg = document.getElementById('errorMsg');
+
+    if(!form.checkValidity()){
+      form.reportValidity();
+      errorMsg.style.display='block';
+      return;
+    }
+    errorMsg.style.display='none';
+
+    const data = new FormData(form);
+    const times = data.getAll('class_time').join(', ') || '-';
+
+    const lines = [
+      '【미술친구 상동점 상담 신청서】',
+      '',
+      '▷ 학생 정보',
+      `- 이름: ${data.get('student_name')||'-'}`,
+      `- 생년월일: ${data.get('student_birth')||'-'}`,
+      `- 성별: ${data.get('gender')||'-'}`,
+      `- 학교/유치원: ${data.get('school')||'-'} / 학년/나이: ${data.get('grade')||'-'}`,
+      `- 주소: ${data.get('address')||'-'}`,
+      `- 학생 연락처: ${data.get('student_phone')||'-'}`,
+      '',
+      '▷ 보호자 정보',
+      `- 이름(관계): ${data.get('guardian_name')||'-'} (${data.get('guardian_relation')||'-'})`,
+      `- 연락처: ${data.get('guardian_phone1')||'-'}`,
+      '',
+      '▷ 수업 정보',
+      `- 등록 희망 횟수: 주 ${data.get('freq')||'-'}회`,
+      `- 희망 수업 시간: ${times}`,
+      `- 차량 이용: ${data.get('vehicle')||'-'}${data.get('vehicle')==='이용' ? ` / 등원지: ${data.get('pickup_from')||'-'} / 하원지: ${data.get('pickup_to')||'-'}` : ''}`,
+      '',
+      '▷ 동의 사항',
+      `- 개인정보 수집·이용 동의: ${data.get('agree_privacy')?'동의함':'미동의'}`,
+      '',
+      '▷ 기타',
+      `- 알러지/건강 주의사항: ${data.get('health_notes')||'-'}`,
+      `- 전달사항: ${data.get('etc_notes')||'-'}`,
+    ];
+
+    document.getElementById('resultText').textContent = lines.join('\n');
+    document.getElementById('formScreen').classList.add('hide');
+    document.getElementById('resultScreen').classList.add('show');
+    window.scrollTo(0,0);
+
+    // ---- Make.com 웹훅으로 전송 ----
+    const etcParts = [];
+    if(data.get('student_birth')) etcParts.push(`생년월일: ${data.get('student_birth')}`);
+    if(data.get('guardian_name')) etcParts.push(`보호자: ${data.get('guardian_name')}(${data.get('guardian_relation')||'-'})`);
+    if(data.get('health_notes')) etcParts.push(`알러지/건강: ${data.get('health_notes')}`);
+    if(data.get('etc_notes')) etcParts.push(`전달사항: ${data.get('etc_notes')}`);
+    if(data.get('agree_privacy')) etcParts.push('개인정보동의: 동의함');
+
+    const payload = {
+      아이이름: data.get('student_name') || '',
+      '나이 / 학년': data.get('grade') || '',
+      '학교/유치원': data.get('school') || '',
+      성별: data.get('gender') || '',
+      주소: data.get('address') || '',
+      학생연락처: data.get('student_phone') || '',
+      '보호자이름(관계)': `${data.get('guardian_name')||''}(${data.get('guardian_relation')||'-'})`,
+      '상담자 연락처': data.get('guardian_phone1') || '',
+      수업횟수: Number(data.get('freq')) || null,
+      수업시간: data.getAll('class_time'),
+      차량이용여부: data.get('vehicle') === '이용',
+      '차량 등원지': data.get('pickup_from') || '',
+      '차량 하원지': data.get('pickup_to') || '',
+      개인정보동의: !!data.get('agree_privacy'),
+      SNS동의: false,
+      기타사항: etcParts.join(' / ')
+    };
+
+    fetch('https://hook.us2.make.com/ut2sv0fb8w439zz6b495tewmjymfkdo1', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    }).catch(err=>{
+      console.error('웹훅 전송 실패:', err);
+    });
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', ()=>{
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(()=>{
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '복사 완료! ✓';
+      btn.classList.add('copied');
+      setTimeout(()=>{btn.textContent='신청 내용 복사하기';btn.classList.remove('copied');},2000);
+    });
+  });
+</script>
+</body>
+</html>
