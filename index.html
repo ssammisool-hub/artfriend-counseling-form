@@ -238,7 +238,6 @@
 
   /* submit */
   .submit-bar{
-    position:sticky;bottom:16px;
     margin-top:28px;
     text-align:center;
   }
@@ -547,7 +546,6 @@
 
     // ---- Make.com 웹훅으로 전송 ----
     const etcParts = [];
-    if(data.get('student_birth')) etcParts.push(`생년월일: ${data.get('student_birth')}`);
     if(data.get('guardian_name')) etcParts.push(`보호자: ${data.get('guardian_name')}(${data.get('guardian_relation')||'-'})`);
     if(data.get('health_notes')) etcParts.push(`알러지/건강: ${data.get('health_notes')}`);
     if(data.get('etc_notes')) etcParts.push(`전달사항: ${data.get('etc_notes')}`);
@@ -560,6 +558,7 @@
       성별: data.get('gender') || '',
       주소: data.get('address') || '',
       학생연락처: data.get('student_phone') || '',
+      생년월일: data.get('student_birth') || '',
       '보호자이름(관계)': `${data.get('guardian_name')||''}(${data.get('guardian_relation')||'-'})`,
       '상담자 연락처': data.get('guardian_phone1') || '',
       수업횟수: Number(data.get('freq')) || null,
