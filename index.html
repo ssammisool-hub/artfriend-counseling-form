@@ -553,6 +553,7 @@
     if(data.get('agree_privacy')) etcParts.push('개인정보동의: 동의함');
 
     const payload = {
+      formType: '상담신청서',
       아이이름: data.get('student_name') || '',
       '나이 / 학년': data.get('grade') || '',
       '학교/유치원': data.get('school') || '',
