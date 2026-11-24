@@ -397,7 +397,7 @@
             <label class="chip checked"><input type="radio" name="program" value="정규 수업" checked>정규 수업</label>
             <label class="chip"><input type="radio" name="program" value="겨울방학 집중반">겨울방학 집중반</label>
           </div>
-          <p class="desc" id="winterNote" style="display:none;margin-top:10px;">초등 대상 · 2027년 1월 4일(월)~2월 26일(금) · 주5회 8주(총 38회) · 8주 420,000원(재료비·차량비 포함)</p>
+          <p class="desc" id="winterNote" style="display:none;margin-top:10px;">초등 대상 · 2027년 1월 4일(월)~2월 26일(금) · 8주 · 주 2~5회 선택<br>8주 교습비: 주2회 260,000원 · 주3회 300,000원 · 주4회 360,000원 · 주5회 420,000원 (재료비·차량비 포함)</p>
         </div>
 
         <div class="field">
@@ -517,11 +517,10 @@
     freqValue.textContent = `주 ${freqSlider.value}회`;
   });
 
-  // 신청 구분: 겨울방학 집중반이면 주5회로 맞추고 안내 표시
+  // 신청 구분: 겨울방학 집중반이면 안내 표시 (횟수는 주 2~5회 중 직접 선택)
   function applyProgram(){
     const winter = document.querySelector('input[name="program"]:checked')?.value === '겨울방학 집중반';
     document.getElementById('winterNote').style.display = winter ? 'block' : 'none';
-    if(winter){ freqSlider.value = 5; freqValue.textContent = '주 5회'; }
   }
   // 광고 링크(?type=winter)로 들어오면 겨울방학 집중반을 미리 선택
   if(new URLSearchParams(location.search).get('type') === 'winter'){
