@@ -513,14 +513,26 @@
   // frequency slider
   const freqSlider = document.getElementById('freqSlider');
   const freqValue = document.getElementById('freqValue');
-  freqSlider.addEventListener('input', ()=>{
-    freqValue.textContent = `주 ${freqSlider.value}회`;
-  });
+  let prevFreq = Number(freqSlider.value);
+  const isWinter = ()=> document.querySelector('input[name="program"]:checked')?.value === '겨울방학 집중반';
+  // 겨울방학 집중반은 주 2·3·5회만 가능: 1회·4회는 건너뜀
+  function snapFreq(){
+    let v = Number(freqSlider.value);
+    if(isWinter()){
+      if(v === 1) v = 2;
+      if(v === 4) v = prevFreq > 4 ? 3 : 5;
+      freqSlider.value = v;
+    }
+    prevFreq = v;
+    freqValue.textContent = `주 ${v}회`;
+  }
+  freqSlider.addEventListener('input', snapFreq);
 
   // 신청 구분: 겨울방학 집중반이면 안내 표시 (횟수는 주 2·3·5회 중 직접 선택)
   function applyProgram(){
     const winter = document.querySelector('input[name="program"]:checked')?.value === '겨울방학 집중반';
     document.getElementById('winterNote').style.display = winter ? 'block' : 'none';
+    snapFreq();
   }
   // 광고 링크(?type=winter)로 들어오면 겨울방학 집중반을 미리 선택
   if(new URLSearchParams(location.search).get('type') === 'winter'){
