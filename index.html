@@ -392,6 +392,15 @@
         <p class="desc">희망 수업 정보를 선택해주세요. (추후 상담 후 조정 가능)</p>
 
         <div class="field">
+          <label>신청 구분</label>
+          <div class="chip-group" data-group="program">
+            <label class="chip checked"><input type="radio" name="program" value="정규 수업" checked>정규 수업</label>
+            <label class="chip"><input type="radio" name="program" value="겨울방학 집중반">겨울방학 집중반</label>
+          </div>
+          <p class="desc" id="winterNote" style="display:none;margin-top:10px;">초등 대상 · 2027년 1월 4일(월)~2월 26일(금) · 주5회 8주(총 38회) · 8주 420,000원(재료비·차량비 포함)</p>
+        </div>
+
+        <div class="field">
           <label>등록 희망 횟수</label>
           <div class="slider-wrap">
             <input type="range" name="freq" min="1" max="5" value="2" step="1" id="freqSlider">
@@ -494,6 +503,7 @@
       } else {
         inp.closest('.chip').classList.toggle('checked', inp.checked);
       }
+      if(inp.name==='program') applyProgram();
       if(inp.name==='vehicle'){
         document.getElementById('pickupField').style.display = inp.value==='이용' ? 'block':'none';
       }
@@ -506,6 +516,20 @@
   freqSlider.addEventListener('input', ()=>{
     freqValue.textContent = `주 ${freqSlider.value}회`;
   });
+
+  // 신청 구분: 겨울방학 집중반이면 주5회로 맞추고 안내 표시
+  function applyProgram(){
+    const winter = document.querySelector('input[name="program"]:checked')?.value === '겨울방학 집중반';
+    document.getElementById('winterNote').style.display = winter ? 'block' : 'none';
+    if(winter){ freqSlider.value = 5; freqValue.textContent = '주 5회'; }
+  }
+  // 광고 링크(?type=winter)로 들어오면 겨울방학 집중반을 미리 선택
+  if(new URLSearchParams(location.search).get('type') === 'winter'){
+    const w = document.querySelector('input[name="program"][value="겨울방학 집중반"]');
+    w.checked = true;
+    document.querySelectorAll('input[name="program"]').forEach(r=>r.closest('.chip').classList.toggle('checked', r.checked));
+    applyProgram();
+  }
 
   // progress bar based on scroll through sections
   const sections = document.querySelectorAll('.section');
@@ -547,6 +571,8 @@
 
     // ---- Make.com 웹훅으로 전송 ----
     const etcParts = [];
+    const program = data.get('program') || '정규 수업';
+    if(program !== '정규 수업') etcParts.push(`[${program}]`);
     if(data.get('student_birth')) etcParts.push(`생년월일: ${data.get('student_birth')}`);
     if(data.get('guardian_name')) etcParts.push(`보호자: ${data.get('guardian_name')}(${data.get('guardian_relation')||'-'})`);
     if(data.get('health_notes')) etcParts.push(`알러지/건강: ${data.get('health_notes')}`);
@@ -555,6 +581,7 @@
 
     const payload = {
       formType: '상담신청서',
+      신청구분: program,
       아이이름: data.get('student_name') || '',
       '나이 / 학년': data.get('grade') || '',
       '학교/유치원': data.get('school') || '',
